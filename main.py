@@ -1,5 +1,6 @@
 from random import randint
-import copy
+from copy import deepcopy
+
 
 word_dic = {
     'dia da semana': ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sabado"],
@@ -13,23 +14,20 @@ word_dic = {
     'substantivo comum': ["pessoas", "homem", "animais"]
 }
 
-text = (
-    "Hoje é {} e eu estou muito {}. Na verdade " +
-    "Eu gostaria que fosse {} para que eu pudesse " +
-    "{} e {}. Tenho um amigo famoso, o {} e nós sempre vamos ao {}. " +
-    "Quando estamos lá, nós gostamos de {} no {}"
-)
+f = open("Texto1.txt", "r", encoding="UTF-8")
+text = f.read()
+f.close()
 
 
-def get_word(type, local_dict):
-    words = local_dict[type]
+def get_word(key, local_dict):
+    words = local_dict[key]
     count = len(words)-1
     index = randint(0, count)
-    return local_dict[type].pop(index)
+    return local_dict[key].pop(index)
 
 
 def create_story():
-    local_dict = copy.deepcopy(word_dic)
+    local_dict = deepcopy(word_dic)
     return text.format(
         get_word('dia da semana', local_dict),
         get_word('sentimento', local_dict),
@@ -45,3 +43,4 @@ def create_story():
 
 story = create_story()
 print(story)
+
